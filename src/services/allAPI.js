@@ -12,11 +12,6 @@ export const getAllVideosAPI = async ()=>{
     return await commonAPI("GET",`${SERVER_URL}/allvideos`,"")
 }
 
-// view single video
-export const getAVideosAPI = async (id)=>{
-    return await commonAPI("GET",`${SERVER_URL}/allvideos/${id}`,"")
-}
-
 // Remove video
 export const removeVideoAPI = async (id)=>{
     return await commonAPI("DELETE",`${SERVER_URL}/allvideos/${id}`,{})
@@ -45,4 +40,16 @@ export const addCategoryAPI = async (category)=>{
 // get all category
 export const getAllCategoryAPI = async ()=>{
     return await commonAPI("GET",`${SERVER_URL}/categories`,"")
+}
+// Remove Category
+export const removeCategoryAPI=async (id)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/categories/${id}`,{})
+}
+// Update Category
+export const updateCategoryAPI=async (id,categoryDetails)=>{
+    return await commonAPI("PUT",`${SERVER_URL}/categories/${id}`,categoryDetails)
+}
+// Get single video
+export const getAVideosAPI = async (id)=>{
+    return await commonAPI("GET",`${SERVER_URL}/allvideos/${id}`,"")
 }

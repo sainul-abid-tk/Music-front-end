@@ -4,12 +4,11 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { uploadNewVideoAPI } from '../services/allAPI';
 
-function Add() {
+function Add({setUploadVideoResponse}) {
   const [uploadVideo,setUploadVideo]=useState({
-    id:"",caption:"",url:"",link:""
+    caption:"",url:"",link:""
   })
   const [show, setShow] = useState(false);
-  console.log(uploadVideo);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
@@ -25,20 +24,21 @@ function Add() {
     }
   }
   const handleUpload= async ()=>{
-    const {id,caption,url,link}=uploadVideo
-    if(!id || !caption || !url || !link){
+    const {caption,url,link}=uploadVideo
+    if(!caption || !url || !link){
       alert("Uploading form is incomplete.Please fill the form completely!!!")
     }
     else{
       const result= await uploadNewVideoAPI(uploadVideo)
-      console.log(result);
       if(result.status>=200 && result.status<3000){
         // success
         handleClose()
         // reset uploadVideo
         setUploadVideo({
-          id:"",caption:"",url:"",link:""
+          caption:"",url:"",link:""
         })
+        // share result.data in to View component
+        setUploadVideoResponse(result.data)
       }
       else{
         alert(result.message)
@@ -57,33 +57,33 @@ function Add() {
         </Modal.Header>
         <Modal.Body>
         <p className='text-white'>Please Fill The Details!!!</p>
-        <FloatingLabel
+        {/* <FloatingLabel
         controlId="floatingInput"
         label="Uploading video Id"
         className="mb-3"
       >
         <Form.Control type="text" placeholder="Uploading video Id" onChange={e=>setUploadVideo({...uploadVideo,id:e.target.value})}/>
-      </FloatingLabel>
+      </FloatingLabel> */}
       <FloatingLabel
         controlId="floatingInput"
         label="Uploading video Caption"
         className="mb-3"
       >
-        <Form.Control type="text" placeholder="Uploading video Id" onChange={e=>setUploadVideo({...uploadVideo,caption:e.target.value})}/>
+        <Form.Control type="text" placeholder="Uploading video Caption" onChange={e=>setUploadVideo({...uploadVideo,caption:e.target.value})}/>
       </FloatingLabel>
       <FloatingLabel
         controlId="floatingInput"
         label="Uploading video Image URL"
         className="mb-3"
       >
-        <Form.Control type="text" placeholder="Uploading video Id" onChange={e=>setUploadVideo({...uploadVideo,url:e.target.value})}/>
+        <Form.Control type="text" placeholder="Uploading video Image URL" onChange={e=>setUploadVideo({...uploadVideo,url:e.target.value})}/>
       </FloatingLabel>
       <FloatingLabel
         controlId="floatingInput"
         label="Uploading video Youtube Link"
         className="mb-3"
       >
-        <Form.Control type="text" placeholder="Uploading video Id" onChange={(e)=>getYoutubeEmbedLink(e)}/>
+        <Form.Control type="text" placeholder="Uploading video Youtube Link" onChange={(e)=>getYoutubeEmbedLink(e)}/>
       </FloatingLabel>
         </Modal.Body>
         <Modal.Footer>
