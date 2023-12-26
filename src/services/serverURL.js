@@ -1,1 +1,1 @@
-export const SERVER_URL="https://music-back-end.onrender.com/"
+export const SERVER_URL="https://music-back-end.onrender.com"
